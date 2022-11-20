@@ -10,4 +10,8 @@ body,
   height: 100%;
   @apply text-white;
   background-color: #17171a;
+  background-image: url("./bgimg.svg");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

@@ -9,7 +9,7 @@ module.exports = {
         "dark-purple": "#4521BB",
         green: "#03A571",
         red: "#E15241",
-        grey: "#FFFFFF",
+        grey: "rgba(255, 255, 255, 0.26)",
       },
       fontFamily: {
         opensans: ["Open Sans", "sans-serif"],
@@ -21,5 +21,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };
