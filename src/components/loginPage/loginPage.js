@@ -1,21 +1,26 @@
-import Logo from "../../Logo.svg";
+import Logo from "../../Logo.png";
 import { LoginModal } from "./modals/loginModal";
+import { SignUpModal } from "./modals/signUpModal";
 export const LoginPage = ({ coins }) => {
   return (
     <div className="py-10">
       <LoginModal />
-      <div className="flex justify-between items-end mb-10">
+      <SignUpModal />
+      <div className="flex justify-between mb-10 ">
         <div className="w-[40%]">
           <img src={Logo} alt="logo" className="w-[100%]" />
         </div>
-        <div className="flex w-[35%] justify-end items-center">
+        <div className="flex w-[35%] justify-center items-center">
           <label
             htmlFor="my-modal"
-            className="border-2 border-dark-purple rounded-lg w-[50%] py-1 mr-3 cursor-pointer text-center"
+            className="border-2 border-dark-purple rounded-lg w-[50%] py-1 mr-3 cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
           >
             Log in
           </label>
-          <label className="border-2 border-dark-purple rounded-lg w-[50%] py-1 bg-dark-purple cursor-pointer text-center">
+          <label
+            htmlFor="signUpModal"
+            className="border-2 border-dark-purple rounded-lg w-[50%] py-1 bg-dark-purple cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
+          >
             Sign up
           </label>
         </div>
