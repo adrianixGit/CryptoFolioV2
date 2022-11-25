@@ -1,12 +1,22 @@
-export const LoginModal = () => {
+export const LoginModal = ({
+  showModalLogin,
+  setShowModalLogin,
+  showModalSignUp,
+  setShowModalSignUp,
+}) => {
   return (
-    <div className="">
-      <input type="checkbox" id="my-modal" className="modal-toggle" />
-      <div className="modal bg-modal-background">
+    <div
+      className={
+        showModalLogin
+          ? "absolute  block w-full h-full top-0 left-0"
+          : "absolute hidden"
+      }
+    >
+      <div className="flex justify-center items-center w-full h-full bg-modal-background">
         <div className=" flex justify-center modal-box py-14 bg-dark-background">
           <form className="w-[90%]">
-            <div class="mb-4">
-              <label class="block  text-sm mb-2" for="username">
+            <div className="mb-4">
+              <label className="block  text-sm mb-2" htmlFor="username">
                 Email address
               </label>
               <input
@@ -16,8 +26,8 @@ export const LoginModal = () => {
                 placeholder="Enter your email address..."
               />
             </div>
-            <div class="mb-6">
-              <label class="block  text-sm  mb-2" for="password">
+            <div className="mb-6">
+              <label className="block  text-sm  mb-2" htmlFor="password">
                 Password
               </label>
               <input
@@ -27,7 +37,7 @@ export const LoginModal = () => {
                 placeholder="Enter your password..."
               />
             </div>
-            <div class="flex items-center flex-col justify-between">
+            <div className="flex items-center flex-col justify-between">
               <button
                 htmlFor="my-modal"
                 className=" border-2 font-bold border-dark-purple w-full rounded-lg py-1 cursor-pointer hover:bg-purple hover:border-purple duration-300"
@@ -36,15 +46,14 @@ export const LoginModal = () => {
               </button>
               <p className="text-sm my-5">You do not have account yet?</p>
               <label
-                htmlFor="my-modal"
+                onClick={() => {
+                  setShowModalLogin(!showModalLogin);
+                  setShowModalSignUp(!showModalSignUp);
+                }}
                 className="border-2  font-bold border-dark-purple w-full rounded-lg px-7 py-1 bg-dark-purple cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
               >
                 Sign up
               </label>
-              <p className="text-sm my-5">
-                By proceeding, you agree to Cryptofolio <a>Terms of Use</a> &
-                Privacy Policy
-              </p>
             </div>
           </form>
         </div>

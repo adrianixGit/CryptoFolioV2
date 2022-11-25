@@ -1,28 +1,41 @@
 import Logo from "../../Logo.png";
 import { LoginModal } from "./modals/loginModal";
 import { SignUpModal } from "./modals/signUpModal";
+import { useState } from "react";
 export const LoginPage = ({ coins }) => {
+  const [showModalSignUp, setShowModalSignUp] = useState(false);
+  const [showModalLogin, setShowModalLogin] = useState(false);
   return (
     <div className="py-10">
-      <LoginModal />
-      <SignUpModal />
+      <LoginModal
+        showModalLogin={showModalLogin}
+        setShowModalLogin={setShowModalLogin}
+        showModalSignUp={showModalSignUp}
+        setShowModalSignUp={setShowModalSignUp}
+      />
+      <SignUpModal
+        showModalLogin={showModalLogin}
+        setShowModalLogin={setShowModalLogin}
+        showModalSignUp={showModalSignUp}
+        setShowModalSignUp={setShowModalSignUp}
+      />
       <div className="flex justify-between mb-10 ">
         <div className="w-[40%]">
           <img src={Logo} alt="logo" className="w-[100%]" />
         </div>
         <div className="flex w-[35%] justify-center items-center">
-          <label
-            htmlFor="my-modal"
+          <button
+            onClick={() => setShowModalLogin(!showModalLogin)}
             className="border-2 border-dark-purple rounded-lg w-[50%] py-1 mr-3 cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
           >
             Log in
-          </label>
-          <label
-            htmlFor="signUpModal"
+          </button>
+          <button
+            onClick={() => setShowModalSignUp(!showModalSignUp)}
             className="border-2 border-dark-purple rounded-lg w-[50%] py-1 bg-dark-purple cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
           >
             Sign up
-          </label>
+          </button>
         </div>
       </div>
       <main className="w-full overflow-x-auto">
@@ -40,7 +53,10 @@ export const LoginPage = ({ coins }) => {
           </thead>
           <tbody>
             {coins.map((coin) => (
-              <tr className="border-b-[1px] border-grey">
+              <tr
+                key={coin.market_cap_rank}
+                className="border-b-[1px] border-grey"
+              >
                 <td className="py-4 px-2">{coin.market_cap_rank}</td>
                 <td className="px-2">
                   <div className="flex justify-start items-center w-full">

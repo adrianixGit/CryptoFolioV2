@@ -1,12 +1,24 @@
-export const SignUpModal = () => {
+import { useState } from "react";
+
+export const SignUpModal = ({
+  showModalLogin,
+  setShowModalLogin,
+  showModalSignUp,
+  setShowModalSignUp,
+}) => {
   return (
-    <div className="">
-      <input type="checkbox" id="signUpModal" className="modal-toggle" />
-      <div className="modal bg-modal-background">
-        <div className=" flex justify-center modal-box py-14 bg-dark-background">
+    <div
+      className={
+        showModalSignUp
+          ? "absolute  block w-full h-full top-0 left-0"
+          : "absolute hidden w-full h-full"
+      }
+    >
+      <div className="flex justify-center items-center w-full h-full bg-modal-background">
+        <div className=" flex justify-center w-full modal-box py-14 bg-dark-background">
           <form className="w-[90%]">
-            <div class="mb-4">
-              <label class="block  text-sm mb-2" for="email">
+            <div className="mb-4">
+              <label className="block  text-sm mb-2" htmlFor="email">
                 Email address
               </label>
               <input
@@ -16,8 +28,8 @@ export const SignUpModal = () => {
                 placeholder="Enter your email address..."
               />
             </div>
-            <div class="mb-4">
-              <label class="block  text-sm mb-2" for="username">
+            <div className="mb-4">
+              <label className="block  text-sm mb-2" htmlFor="username">
                 Username
               </label>
               <input
@@ -27,8 +39,8 @@ export const SignUpModal = () => {
                 placeholder="Enter your username..."
               />
             </div>
-            <div class="mb-6">
-              <label class="block  text-sm  mb-2" for="password">
+            <div className="mb-6">
+              <label className="block  text-sm  mb-2" htmlFor="password">
                 Password
               </label>
               <input
@@ -38,7 +50,7 @@ export const SignUpModal = () => {
                 placeholder="Enter your password..."
               />
             </div>
-            <div class="flex items-center flex-col justify-between">
+            <div className="flex items-center flex-col justify-between">
               <label
                 htmlFor="my-modal"
                 className="border-2 font-bold border-dark-purple w-full rounded-lg px-7 py-1 bg-dark-purple cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
@@ -47,12 +59,15 @@ export const SignUpModal = () => {
               </label>
 
               <p className="text-sm my-5">Already have an account?</p>
-              <button
-                htmlFor="my-modal"
-                className=" border-2 font-bold border-dark-purple w-full rounded-lg py-1 cursor-pointer hover:bg-purple hover:border-purple duration-300"
+              <label
+                onClick={() => {
+                  setShowModalLogin(!showModalLogin);
+                  setShowModalSignUp(!showModalSignUp);
+                }}
+                className=" border-2 font-bold border-dark-purple w-full rounded-lg px-7 py-1 cursor-pointer hover:bg-purple text-center hover:border-purple duration-300"
               >
                 Log in
-              </button>
+              </label>
               <p className="text-xs my-5 text-center w-[60%]">
                 By proceeding, you agree to Cryptofolio{" "}
                 <a href="/" className="text-purple">
