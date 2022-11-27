@@ -1,13 +1,17 @@
-export const SignUpModal = ({
-  showModalLogin,
-  setShowModalLogin,
-  showModalSignUp,
-  setShowModalSignUp,
-}) => {
+import React, { useContext } from "react";
+import { ModalsContext } from "../../Contexts/modalsContext";
+export const SignUpModal = () => {
+  const {
+    showModalLogin,
+    setShowModalLogin,
+    showSignUpModal,
+    setshowSignUpModal,
+  } = useContext(ModalsContext);
+
   return (
     <div
       className={
-        showModalSignUp
+        showSignUpModal
           ? "absolute  block w-full h-full top-0 left-0"
           : "absolute hidden w-full h-full"
       }
@@ -60,7 +64,7 @@ export const SignUpModal = ({
               <label
                 onClick={() => {
                   setShowModalLogin(!showModalLogin);
-                  setShowModalSignUp(!showModalSignUp);
+                  setshowSignUpModal(!showSignUpModal);
                 }}
                 className=" border-2 font-bold border-dark-purple w-full rounded-lg px-7 py-1 cursor-pointer hover:bg-purple text-center hover:border-purple duration-300"
               >

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { LoginPage } from "./components/loginPage/loginPage";
+import { LoginPage } from "./view/loginPage";
 
 function App() {
   const API_URL_TOP_10 =
