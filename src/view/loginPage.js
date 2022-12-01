@@ -5,16 +5,16 @@ import { useState } from "react";
 import { TableBody } from "../components/tableBody";
 import { ModalsContext } from "../Contexts/modalsContext";
 export const LoginPage = ({ coins }) => {
-  const [showSignUpModal, setshowSignUpModal] = useState(false);
-  const [showSignInModal, setshowSignInModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
   return (
     <div className="py-10">
       <ModalsContext.Provider
         value={{
           showSignUpModal,
-          setshowSignUpModal,
+          setShowSignUpModal,
           showSignInModal,
-          setshowSignInModal,
+          setShowSignInModal,
         }}
       >
         <LoginModal />
@@ -26,13 +26,13 @@ export const LoginPage = ({ coins }) => {
         </div>
         <div className="flex w-[35%] justify-center items-center">
           <button
-            onClick={() => setshowSignInModal(!showSignInModal)}
+            onClick={() => setShowSignInModal(!showSignInModal)}
             className="border-2 border-dark-purple rounded-lg w-[50%] py-1 mr-3 cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
           >
             Log in
           </button>
           <button
-            onClick={() => setshowSignUpModal(!showSignUpModal)}
+            onClick={() => setShowSignUpModal(!showSignUpModal)}
             className="border-2 border-dark-purple rounded-lg w-[50%] py-1 bg-dark-purple cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
           >
             Sign up

@@ -2,11 +2,16 @@ import React, { useContext } from "react";
 import { ModalsContext } from "../../Contexts/modalsContext";
 export const SignUpModal = () => {
   const {
-    showModalLogin,
-    setShowModalLogin,
+    showSignInModal,
+    setShowSignInModal,
     showSignUpModal,
-    setshowSignUpModal,
+    setShowSignUpModal,
   } = useContext(ModalsContext);
+
+  const switchModals = () => {
+    setShowSignInModal(!showSignInModal);
+    setShowSignUpModal(!showSignUpModal);
+  };
 
   return (
     <div
@@ -62,10 +67,7 @@ export const SignUpModal = () => {
 
               <p className="text-sm my-5">Already have an account?</p>
               <label
-                onClick={() => {
-                  setShowModalLogin(!showModalLogin);
-                  setshowSignUpModal(!showSignUpModal);
-                }}
+                onClick={switchModals}
                 className=" border-2 font-bold border-dark-purple w-full rounded-lg px-7 py-1 cursor-pointer hover:bg-purple text-center hover:border-purple duration-300"
               >
                 Log in
