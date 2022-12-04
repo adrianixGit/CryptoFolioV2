@@ -39,10 +39,19 @@ export const LoginModal = () => {
                 id="username"
                 type="text"
                 placeholder="Enter your email address..."
-                {...register("email", { required: "true" })}
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value:
+                      /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                    message: "Invalid email address",
+                  },
+                })}
               />
               {errors.email && (
-                <span className="text-red text-xs">Username is required</span>
+                <span className="text-red text-xs">
+                  {errors.email && errors.email.message}
+                </span>
               )}
             </div>
             <div className="mb-6">
@@ -56,7 +65,7 @@ export const LoginModal = () => {
                 placeholder="Enter your password..."
                 {...register("password", { required: "true" })}
               />
-              {errors.password && (
+              {errors.password?.type === "required" && (
                 <span className="text-red text-xs">Password is required</span>
               )}
             </div>
