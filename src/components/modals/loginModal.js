@@ -29,7 +29,7 @@ export const LoginModal = () => {
     >
       <div className="flex justify-center items-center w-full h-full bg-modal-background">
         <div className=" flex justify-center modal-box py-14 bg-dark-background">
-          <form className="w-[90%]" onSubmit={handleSubmit(onSubmit)}>
+          <form className="w-[90%]" onSubmit={() => handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label className="block  text-sm mb-2" htmlFor="username">
                 Email address
@@ -63,7 +63,7 @@ export const LoginModal = () => {
                 id="password"
                 type="password"
                 placeholder="Enter your password..."
-                {...register("password", { required: "true" })}
+                {...register("password", { required: true })}
               />
               {errors.password?.type === "required" && (
                 <span className="text-red text-xs">Password is required</span>
@@ -79,8 +79,8 @@ export const LoginModal = () => {
               <p className="text-sm my-5">You do not have account yet?</p>
               <label
                 onClick={() => {
-                  setShowSignInModal(!showSignInModal);
-                  setShowSignUpModal(!showSignUpModal);
+                  setShowSignInModal((prevState) => !prevState);
+                  setShowSignUpModal((prevState) => !prevState);
                 }}
                 className="border-2  font-bold border-dark-purple w-full rounded-lg px-7 py-1 bg-dark-purple cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
               >

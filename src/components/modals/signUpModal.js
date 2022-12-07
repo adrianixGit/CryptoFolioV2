@@ -10,8 +10,8 @@ export const SignUpModal = () => {
   } = useContext(ModalsContext);
 
   const switchModals = () => {
-    setShowSignInModal(!showSignInModal);
-    setShowSignUpModal(!showSignUpModal);
+    setShowSignInModal((prevState) => !prevState);
+    setShowSignUpModal((prevState) => !prevState);
   };
 
   const {
@@ -33,7 +33,7 @@ export const SignUpModal = () => {
     >
       <div className="flex justify-center items-center w-full h-full bg-modal-background">
         <div className=" flex justify-center w-full modal-box py-14 bg-dark-background">
-          <form className="w-[90%]" onSubmit={handleSubmit(onSubmit)}>
+          <form className="w-[90%]" onSubmit={() => handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label className="block  text-sm mb-2" htmlFor="email">
                 Email address
