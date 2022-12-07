@@ -1,38 +1,38 @@
-import Logo from "../../Logo.png";
-import { LoginModal } from "./modals/loginModal";
-import { SignUpModal } from "./modals/signUpModal";
+import Logo from "../Logo.png";
+import { LoginModal } from "../components/modals/loginModal";
+import { SignUpModal } from "../components/modals/signUpModal";
 import { useState } from "react";
-import { TableBody } from "./tableBody";
+import { TableBody } from "../components/tableBody";
+import { ModalsContext } from "../Contexts/modalsContext";
 export const LoginPage = ({ coins }) => {
-  const [showModalSignUp, setShowModalSignUp] = useState(false);
-  const [showModalLogin, setShowModalLogin] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
   return (
     <div className="py-10">
-      <LoginModal
-        showModalLogin={showModalLogin}
-        setShowModalLogin={setShowModalLogin}
-        showModalSignUp={showModalSignUp}
-        setShowModalSignUp={setShowModalSignUp}
-      />
-      <SignUpModal
-        showModalLogin={showModalLogin}
-        setShowModalLogin={setShowModalLogin}
-        showModalSignUp={showModalSignUp}
-        setShowModalSignUp={setShowModalSignUp}
-      />
+      <ModalsContext.Provider
+        value={{
+          showSignUpModal,
+          setShowSignUpModal,
+          showSignInModal,
+          setShowSignInModal,
+        }}
+      >
+        <LoginModal />
+        <SignUpModal />
+      </ModalsContext.Provider>
       <div className="flex justify-between mb-10 ">
         <div className="w-[40%]">
           <img src={Logo} alt="logo" className="w-[100%]" />
         </div>
         <div className="flex w-[35%] justify-center items-center">
           <button
-            onClick={() => setShowModalLogin(!showModalLogin)}
+            onClick={() => setShowSignInModal((prevState) => !prevState)}
             className="border-2 border-dark-purple rounded-lg w-[50%] py-1 mr-3 cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
           >
             Log in
           </button>
           <button
-            onClick={() => setShowModalSignUp(!showModalSignUp)}
+            onClick={() => setShowSignUpModal((prevState) => !prevState)}
             className="border-2 border-dark-purple rounded-lg w-[50%] py-1 bg-dark-purple cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
           >
             Sign up

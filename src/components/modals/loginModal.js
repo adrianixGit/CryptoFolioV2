@@ -1,20 +1,35 @@
-export const LoginModal = ({
-  showModalLogin,
-  setShowModalLogin,
-  showModalSignUp,
-  setShowModalSignUp,
-}) => {
+import React, { useContext } from "react";
+import { ModalsContext } from "../../Contexts/modalsContext";
+import { useForm } from "react-hook-form";
+
+export const LoginModal = () => {
+  const {
+    showSignInModal,
+    setShowSignInModal,
+    showSignUpModal,
+    setShowSignUpModal,
+  } = useContext(ModalsContext);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => console.log(data);
+
   return (
     <div
       className={
-        showModalLogin
+        showSignInModal
           ? "absolute  block w-full h-full top-0 left-0"
           : "absolute hidden"
       }
     >
       <div className="flex justify-center items-center w-full h-full bg-modal-background">
         <div className=" flex justify-center modal-box py-14 bg-dark-background">
-          <form className="w-[90%]">
+          <form className="w-[90%]" onSubmit={() => handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label className="block  text-sm mb-2" htmlFor="username">
                 Email address
@@ -24,7 +39,20 @@ export const LoginModal = ({
                 id="username"
                 type="text"
                 placeholder="Enter your email address..."
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value:
+                      /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                    message: "Invalid email address",
+                  },
+                })}
               />
+              {errors.email && (
+                <span className="text-red text-xs">
+                  {errors.email && errors.email.message}
+                </span>
+              )}
             </div>
             <div className="mb-6">
               <label className="block  text-sm  mb-2" htmlFor="password">
@@ -35,7 +63,11 @@ export const LoginModal = ({
                 id="password"
                 type="password"
                 placeholder="Enter your password..."
+                {...register("password", { required: true })}
               />
+              {errors.password?.type === "required" && (
+                <span className="text-red text-xs">Password is required</span>
+              )}
             </div>
             <div className="flex items-center flex-col justify-between">
               <button
@@ -47,8 +79,8 @@ export const LoginModal = ({
               <p className="text-sm my-5">You do not have account yet?</p>
               <label
                 onClick={() => {
-                  setShowModalLogin(!showModalLogin);
-                  setShowModalSignUp(!showModalSignUp);
+                  setShowSignInModal((prevState) => !prevState);
+                  setShowSignUpModal((prevState) => !prevState);
                 }}
                 className="border-2  font-bold border-dark-purple w-full rounded-lg px-7 py-1 bg-dark-purple cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
               >
