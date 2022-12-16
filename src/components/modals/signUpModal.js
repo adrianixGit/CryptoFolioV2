@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ModalsContext } from "../../Contexts/modalsContext";
 import { useForm } from "react-hook-form";
+import { db } from "../../firebase-config";
+import { addDoc, collection } from "firebase/firestore";
 export const SignUpModal = () => {
   const {
     showSignInModal,
@@ -21,7 +23,15 @@ export const SignUpModal = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const usersCollection = collection(db, "users");
+
+  const onSubmit = (data) => {
+    addDoc(usersCollection, {
+      email: data.email,
+      password: data.password,
+      username: data.username,
+    });
+  };
 
   return (
     <div
@@ -33,7 +43,7 @@ export const SignUpModal = () => {
     >
       <div className="flex justify-center items-center w-full h-full bg-modal-background">
         <div className=" flex justify-center w-full modal-box py-14 bg-dark-background">
-          <form className="w-[90%]" onSubmit={() => handleSubmit(onSubmit)}>
+          <form className="w-[90%]" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label className="block  text-sm mb-2" htmlFor="email">
                 Email address

@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { ModalsContext } from "../../Contexts/modalsContext";
 import { useForm } from "react-hook-form";
 
-export const LoginModal = () => {
+export const LoginModal = ({ users }) => {
+  console.log("from login", users);
   const {
     showSignInModal,
     setShowSignInModal,
