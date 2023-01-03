@@ -18,7 +18,9 @@ export const LoginModal = ({ users }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    window.location.reload();
+  };
 
   return (
     <div

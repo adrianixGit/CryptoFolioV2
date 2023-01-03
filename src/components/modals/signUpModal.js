@@ -31,6 +31,7 @@ export const SignUpModal = () => {
       password: data.password,
       username: data.username,
     });
+    window.location.reload();
   };
 
   return (
