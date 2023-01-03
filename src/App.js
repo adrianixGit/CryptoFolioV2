@@ -17,8 +17,6 @@ function App() {
     fetchCoin();
   }, []);
 
-  console.log(coins);
-
   return (
     <div className="flex justify-center">
       <div className="w-[80%]">

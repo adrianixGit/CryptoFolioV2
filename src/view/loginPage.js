@@ -1,12 +1,23 @@
 import Logo from "../Logo.png";
 import { LoginModal } from "../components/modals/loginModal";
 import { SignUpModal } from "../components/modals/signUpModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TableBody } from "../components/tableBody";
 import { ModalsContext } from "../Contexts/modalsContext";
+import { db } from "../firebase-config";
+import { collection, getDocs } from "firebase/firestore";
 export const LoginPage = ({ coins }) => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
+  const [users, setUsers] = useState([]);
+  const usersCollection = collection(db, "users");
+  const fetchUsers = async () => {
+    const data = await getDocs(usersCollection);
+    setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
   return (
     <div className="py-10">
       <ModalsContext.Provider
@@ -17,7 +28,7 @@ export const LoginPage = ({ coins }) => {
           setShowSignInModal,
         }}
       >
-        <LoginModal />
+        <LoginModal users={users} />
         <SignUpModal />
       </ModalsContext.Provider>
       <div className="flex justify-between mb-10 ">
