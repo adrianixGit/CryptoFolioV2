@@ -18,6 +18,7 @@ export const LoginPage = ({ coins }) => {
   useEffect(() => {
     fetchUsers();
   }, []);
+
   return (
     <div className="py-10">
       <ModalsContext.Provider
