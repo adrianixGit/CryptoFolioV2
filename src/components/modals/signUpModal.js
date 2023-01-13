@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { ModalsContext } from "../../Contexts/modalsContext";
 import { useForm } from "react-hook-form";
 import { db } from "../../firebase-config";
@@ -16,6 +16,20 @@ export const SignUpModal = () => {
     setShowSignUpModal((prevState) => !prevState);
   };
 
+  const modalRef = useRef();
+
+  const hideModal = (e) => {
+    if (!modalRef.current.contains(e.target)) {
+      setShowSignUpModal(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", hideModal);
+
+    return () => document.removeEventListener("mousedown", hideModal);
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -31,6 +45,7 @@ export const SignUpModal = () => {
       password: data.password,
       username: data.username,
     });
+    window.location.reload();
   };
 
   return (
@@ -42,7 +57,10 @@ export const SignUpModal = () => {
       }
     >
       <div className="flex justify-center items-center w-full h-full bg-modal-background">
-        <div className=" flex justify-center w-full modal-box py-14 bg-dark-background">
+        <div
+          className=" flex justify-center w-full modal-box py-14 bg-dark-background"
+          ref={modalRef}
+        >
           <form className="w-[90%]" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label className="block  text-sm mb-2" htmlFor="email">

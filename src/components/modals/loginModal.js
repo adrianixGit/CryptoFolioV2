@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { ModalsContext } from "../../Contexts/modalsContext";
 import { useForm } from "react-hook-form";
 
@@ -11,6 +11,19 @@ export const LoginModal = ({ users }) => {
     setShowSignUpModal,
   } = useContext(ModalsContext);
 
+  const modalRef = useRef();
+
+  const hideModal = (e) => {
+    if (!modalRef.current.contains(e.target)) {
+      setShowSignInModal(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", hideModal);
+    return () => document.removeEventListener("mousedown", hideModal);
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -18,7 +31,9 @@ export const LoginModal = ({ users }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    //window.location.reload();
+  };
 
   return (
     <div
@@ -29,7 +44,10 @@ export const LoginModal = ({ users }) => {
       }
     >
       <div className="flex justify-center items-center w-full h-full bg-modal-background">
-        <div className=" flex justify-center modal-box py-14 bg-dark-background">
+        <div
+          className=" flex justify-center modal-box py-14 bg-dark-background"
+          ref={modalRef}
+        >
           <form className="w-[90%]" onSubmit={() => handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label className="block  text-sm mb-2" htmlFor="username">
