@@ -18,12 +18,16 @@ export const SignUpModal = () => {
 
   const modalRef = useRef();
 
+  const hideModal = (e) => {
+    if (!modalRef.current.contains(e.target)) {
+      setShowSignUpModal(false);
+    }
+  };
+
   useEffect(() => {
-    document.addEventListener("mousedown", (e) => {
-      if (!modalRef.current.contains(e.target)) {
-        setShowSignUpModal(false);
-      }
-    });
+    document.addEventListener("mousedown", hideModal);
+
+    return () => document.removeEventListener("mousedown", hideModal);
   }, []);
 
   const {

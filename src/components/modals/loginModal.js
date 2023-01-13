@@ -13,12 +13,15 @@ export const LoginModal = ({ users }) => {
 
   const modalRef = useRef();
 
+  const hideModal = (e) => {
+    if (!modalRef.current.contains(e.target)) {
+      setShowSignInModal(false);
+    }
+  };
+
   useEffect(() => {
-    document.addEventListener("mousedown", (e) => {
-      if (!modalRef.current.contains(e.target)) {
-        setShowSignInModal(false);
-      }
-    });
+    document.addEventListener("mousedown", hideModal);
+    return () => document.removeEventListener("mousedown", hideModal);
   }, []);
 
   const {
