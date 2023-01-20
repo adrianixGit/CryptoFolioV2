@@ -1,8 +1,8 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { ModalsContext } from "../../Contexts/modalsContext";
 import { useForm } from "react-hook-form";
-import { db } from "../../firebase-config";
-import { addDoc, collection } from "firebase/firestore";
+import { auth } from "../../firebase-config";
+import { createUserWithEmailAndPassword, writeUser } from "firebase/auth";
 export const SignUpModal = () => {
   const {
     showSignInModal,
@@ -37,15 +37,19 @@ export const SignUpModal = () => {
     formState: { errors },
   } = useForm();
 
-  const usersCollection = collection(db, "users");
-
-  const onSubmit = (data) => {
-    addDoc(usersCollection, {
-      email: data.email,
-      password: data.password,
-      username: data.username,
-    });
-    window.location.reload();
+  const onSubmit = async (data) => {
+    try {
+      const addUser = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password,
+        data.username
+      );
+      console.log(addUser.user.uid);
+    } catch (error) {
+      console.log(error.message);
+    }
+    // window.location.reload();
   };
 
   return (
@@ -137,10 +141,7 @@ export const SignUpModal = () => {
               </span>
             </div>
             <div className="flex items-center flex-col justify-between">
-              <button
-                htmlFor="my-modal"
-                className="border-2 font-bold border-dark-purple w-full rounded-lg px-7 py-1 bg-dark-purple cursor-pointer text-center hover:bg-purple hover:border-purple duration-300"
-              >
+              <button className="border-2 font-bold border-dark-purple w-full rounded-lg px-7 py-1 bg-dark-purple cursor-pointer text-center hover:bg-purple hover:border-purple duration-300">
                 Create an account
               </button>
 

@@ -4,20 +4,20 @@ import { SignUpModal } from "../components/modals/signUpModal";
 import { useState, useEffect } from "react";
 import { TableBody } from "../components/tableBody";
 import { ModalsContext } from "../Contexts/modalsContext";
-import { db } from "../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase-config";
+
 export const LoginPage = ({ coins }) => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [users, setUsers] = useState([]);
-  const usersCollection = collection(db, "users");
-  const fetchUsers = async () => {
-    const data = await getDocs(usersCollection);
-    setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+
+  // const fetchUsers = async () => {
+  //   const user = await createUserWithEmailAndPassword();
+  // };
+  // useEffect(() => {
+  //   fetchUsers();
+  // }, []);
 
   return (
     <div className="py-10">

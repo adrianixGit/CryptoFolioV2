@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { ModalsContext } from "../../Contexts/modalsContext";
 import { useForm } from "react-hook-form";
+import { auth } from "../../firebase-config";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export const LoginModal = ({ users }) => {
   console.log("from login", users);
@@ -31,8 +33,23 @@ export const LoginModal = ({ users }) => {
     formState: { errors },
   } = useForm();
 
+  const login = async (data) => {
+    try {
+      const logUser = await signInWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      if (logUser) {
+        console.log(logUser.user.uid);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const onSubmit = (data) => {
-    //window.location.reload();
+    login(data);
   };
 
   return (
@@ -48,7 +65,7 @@ export const LoginModal = ({ users }) => {
           className=" flex justify-center modal-box py-14 bg-dark-background"
           ref={modalRef}
         >
-          <form className="w-[90%]" onSubmit={() => handleSubmit(onSubmit)}>
+          <form className="w-[90%]" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label className="block  text-sm mb-2" htmlFor="username">
                 Email address
@@ -89,10 +106,7 @@ export const LoginModal = ({ users }) => {
               )}
             </div>
             <div className="flex items-center flex-col justify-between">
-              <button
-                htmlFor="my-modal"
-                className=" border-2 font-bold border-dark-purple w-full rounded-lg py-1 cursor-pointer hover:bg-purple hover:border-purple duration-300"
-              >
+              <button className=" border-2 font-bold border-dark-purple w-full rounded-lg px-7 py-1 cursor-pointer hover:bg-purple text-center hover:border-purple duration-300">
                 Log in
               </button>
               <p className="text-sm my-5">You do not have account yet?</p>
