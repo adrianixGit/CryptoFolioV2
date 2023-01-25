@@ -1,15 +1,17 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "@firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_USERS_API_KEY,
-  authDomain: process.env.AUTH_DOMAIN_USERS,
-  projectId: "users-cryptofolio",
-  storageBucket: process.env.STORAGE_BUCKET_USERS,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID_USERS,
-  appId: process.env.APP_ID_USERS,
-  measurementId: process.env.MEASUREMENT_ID_USERS,
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_AUTHO_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MESUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
 
+export const auth = getAuth(app);
 export const db = getFirestore(app);
