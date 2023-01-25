@@ -1,7 +1,8 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { ModalsContext } from "../../Contexts/modalsContext";
 import { useForm } from "react-hook-form";
-import { auth } from "../../firebase-config";
+import { auth, db } from "../../firebase-config";
+import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, writeUser } from "firebase/auth";
 export const SignUpModal = () => {
   const {
@@ -37,6 +38,17 @@ export const SignUpModal = () => {
     formState: { errors },
   } = useForm();
 
+  const handleAddUser = async (uid, username) => {
+    try {
+      const docRef = await setDoc(doc(db, "users", uid), {
+        general: { username: username, portfolio_name: "", balance: 0 },
+        assets: { coin_type: "", holdings: 0 },
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
   const onSubmit = async (data) => {
     try {
       const addUser = await createUserWithEmailAndPassword(
@@ -45,7 +57,10 @@ export const SignUpModal = () => {
         data.password,
         data.username
       );
-      console.log(addUser.user.uid);
+      sessionStorage.setItem("userUID", addUser.user.uid);
+      let UID = sessionStorage.getItem("userUID");
+      console.log(UID);
+      handleAddUser(addUser.user.uid, data.username);
     } catch (error) {
       console.log(error.message);
     }
