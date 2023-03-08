@@ -10,14 +10,6 @@ import { auth } from "../firebase-config";
 export const LoginPage = ({ coins }) => {
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showSignInModal, setShowSignInModal] = useState(false);
-  const [users, setUsers] = useState([]);
-
-  // const fetchUsers = async () => {
-  //   const user = await createUserWithEmailAndPassword();
-  // };
-  // useEffect(() => {
-  //   fetchUsers();
-  // }, []);
 
   return (
     <div className="py-10">
@@ -29,7 +21,7 @@ export const LoginPage = ({ coins }) => {
           setShowSignInModal,
         }}
       >
-        <LoginModal users={users} />
+        <LoginModal />
         <SignUpModal />
       </ModalsContext.Provider>
       <div className="flex justify-between mb-10 ">

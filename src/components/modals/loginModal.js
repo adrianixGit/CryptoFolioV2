@@ -3,9 +3,11 @@ import { ModalsContext } from "../../Contexts/modalsContext";
 import { useForm } from "react-hook-form";
 import { auth } from "../../firebase-config";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { PortfolioPage } from "../../view/portfolioPage";
+import UserContext from "../../Contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-export const LoginModal = ({ users }) => {
-  console.log("from login", users);
+export const LoginModal = () => {
   const {
     showSignInModal,
     setShowSignInModal,
@@ -13,7 +15,11 @@ export const LoginModal = ({ users }) => {
     setShowSignUpModal,
   } = useContext(ModalsContext);
 
+  const { login } = useContext(UserContext);
+
   const modalRef = useRef();
+
+  const navigate = useNavigate();
 
   const hideModal = (e) => {
     if (!modalRef.current.contains(e.target)) {
@@ -33,23 +39,29 @@ export const LoginModal = ({ users }) => {
     formState: { errors },
   } = useForm();
 
-  const login = async (data) => {
+  // const login = async (data) => {
+  //   try {
+  //     const logUser = await signInWithEmailAndPassword(
+  //       auth,
+  //       data.email,
+  //       data.password
+  //     );
+  //     if (logUser) {
+  //       console.log("success");
+  //       <Navigate to="/portfolio" replace={true} />;
+  //     }
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
+
+  const onSubmit = async (data) => {
     try {
-      const logUser = await signInWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
-      if (logUser) {
-        console.log(logUser.user.uid);
-      }
+      await login(data.email, data.password);
+      navigate("/portfolio");
     } catch (error) {
       console.log(error.message);
     }
-  };
-
-  const onSubmit = (data) => {
-    login(data);
   };
 
   return (

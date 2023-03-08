@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { auth, db } from "../../firebase-config";
 import { doc, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword, writeUser } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../../Contexts/AuthContext";
 export const SignUpModal = () => {
   const {
     showSignInModal,
@@ -11,6 +13,9 @@ export const SignUpModal = () => {
     showSignUpModal,
     setShowSignUpModal,
   } = useContext(ModalsContext);
+
+  const { addUser, user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const switchModals = () => {
     setShowSignInModal((prevState) => !prevState);
@@ -38,33 +43,14 @@ export const SignUpModal = () => {
     formState: { errors },
   } = useForm();
 
-  const handleAddUser = async (uid, username) => {
-    try {
-      const docRef = await setDoc(doc(db, "users", uid), {
-        general: { username: username, portfolio_name: "", balance: 0 },
-        assets: { coin_type: "", holdings: 0 },
-      });
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-  };
-
   const onSubmit = async (data) => {
     try {
-      const addUser = await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password,
-        data.username
-      );
-      sessionStorage.setItem("userUID", addUser.user.uid);
-      let UID = sessionStorage.getItem("userUID");
-      console.log(UID);
-      handleAddUser(addUser.user.uid, data.username);
+      await addUser(data.email, data.password, data.username);
+
+      navigate("/portfolio");
     } catch (error) {
       console.log(error.message);
     }
-    // window.location.reload();
   };
 
   return (
@@ -179,6 +165,7 @@ export const SignUpModal = () => {
               </p>
             </div>
           </form>
+          <button>TEST</button>
         </div>
       </div>
     </div>
