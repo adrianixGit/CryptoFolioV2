@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { ModalsContext } from "../../Contexts/modalsContext";
 import { useForm } from "react-hook-form";
-import { auth } from "../../firebase-config";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { PortfolioPage } from "../../view/portfolioPage";
 import UserContext from "../../Contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -38,22 +35,6 @@ export const LoginModal = () => {
     watch,
     formState: { errors },
   } = useForm();
-
-  // const login = async (data) => {
-  //   try {
-  //     const logUser = await signInWithEmailAndPassword(
-  //       auth,
-  //       data.email,
-  //       data.password
-  //     );
-  //     if (logUser) {
-  //       console.log("success");
-  //       <Navigate to="/portfolio" replace={true} />;
-  //     }
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
 
   const onSubmit = async (data) => {
     try {

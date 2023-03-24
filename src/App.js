@@ -24,7 +24,7 @@ function App() {
           path="portfolio"
           element={
             <ProtectedRoute>
-              <PortfolioPage />
+              <PortfolioPage coins={coins} />
             </ProtectedRoute>
           }
         />

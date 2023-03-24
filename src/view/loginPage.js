@@ -25,9 +25,8 @@ export const LoginPage = ({ coins }) => {
         <SignUpModal />
       </ModalsContext.Provider>
       <div className="flex justify-between mb-10 ">
-        <div className="w-[40%]">
-          <img src={Logo} alt="logo" className="w-[100%]" />
-        </div>
+        <img src={Logo} alt="logo" className="w-[40%]" />
+
         <div className="flex w-[35%] justify-center items-center">
           <button
             onClick={() => setShowSignInModal((prevState) => !prevState)}
